@@ -15,6 +15,7 @@ function! GetScriptEditorHistoryPath() abort
             let scriptEditorHistoryPath = $HOME . "/Library/Preferences/Autodesk/maya/scriptEditorHistory.txt"
         else
             " Linux
+            let scriptEditorHistoryPath = $HOME . "/maya/scriptEditorHistory.txt"
         endif
     elseif has("win32")
         " Windows
