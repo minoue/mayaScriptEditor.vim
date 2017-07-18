@@ -1,0 +1,1 @@
+# mayaScriptEditor.vim
