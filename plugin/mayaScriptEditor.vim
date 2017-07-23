@@ -63,7 +63,13 @@ function! SendToMaya()
 
     let g:currentWorkingBuffer = bufnr('%')
     let current_file_path = expand('%:p')
-    let cmd = "execfile('" . current_file_path . "')"
+
+    if has("unix")
+        let cmd = "execfile('" . current_file_path . "')"
+    elseif has("win32")
+        let filePath_forWin = substitute(current_file_path, "\\", "/", "g")
+        let cmd = "execfile('" . filePath_forWin . "')"
+    endif
     
     let options = {'mode': 'raw', 'callback': function('MayaHandler')}
     let ch = ch_open('localhost:23456', options)
