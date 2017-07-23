@@ -19,6 +19,7 @@ function! GetScriptEditorHistoryPath() abort
         endif
     elseif has("win32")
         " Windows
+        let scriptEditorHistoryPath = $HOME . "\\Documents\\maya\\scriptEditorHistory.txt"
     endif
     return scriptEditorHistoryPath
 endfunction
