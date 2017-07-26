@@ -54,7 +54,7 @@ function! MayaHandler(ch, msg)
 endfunction
 
 
-function! SendToMaya()
+function! MayaScriptEditorSendCmd()
     let current_file_type = &filetype
     if current_file_type != 'python'
         echo 'Not python file'
@@ -78,14 +78,16 @@ function! SendToMaya()
     echo "Now running the script... Please wait."
     call ch_sendraw(ch, cmd)
 endfunction     
+command! MayaScriptEditorSend call MayaScriptEditorSendCmd()
 
 
-function! ClearScriptEditorHistoryFile() abort
+function! MayaScriptEditorClearHistory() abort
     let cmd = "from maya import cmds; cmds.scriptEditorInfo(clearHistoryFile=True)"
     let options = {'mode': 'raw', 'callback': function('MayaHandler')}
     let ch = ch_open('localhost:23456', options)
     call ch_sendraw(ch, cmd)
 endfunction
+command! MayaScriptEditorClear call MayaScriptEditorClearHistory()
 
 
 au BufRead,BufNewFile scriptEditorHistory.txt set filetype=mayaScriptEditor
