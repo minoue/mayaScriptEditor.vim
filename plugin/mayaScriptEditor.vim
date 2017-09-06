@@ -6,6 +6,7 @@ let g:loaded_mayaScriptEditor = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+let g:MayaScriptEditorEnableOutput = 0
 
 function! GetScriptEditorHistoryPath() abort
     if has("unix")
@@ -44,13 +45,15 @@ function! MayaHandler(ch, msg)
         return 0
     end
 
-    " https://vi.stackexchange.com/questions/5126/how-to-detect-the-buffer-number-of-new-buffer
-    execute "new " . scriptEditorPath
-    setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-    let g:scriptEditorBufferNumber = bufnr('%')
-    let numOfLines = line('$')
-    cal cursor(numOfLines, 0)
-    execute "sb " . g:currentWorkingBuffer
+    if g:MayaScriptEditorEnableOutput == 1
+        " https://vi.stackexchange.com/questions/5126/how-to-detect-the-buffer-number-of-new-buffer
+        execute "new " . scriptEditorPath
+        setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+        let g:scriptEditorBufferNumber = bufnr('%')
+        let numOfLines = line('$')
+        cal cursor(numOfLines, 0)
+        execute "sb " . g:currentWorkingBuffer
+    endif
 endfunction
 
 
